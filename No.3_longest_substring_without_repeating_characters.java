@@ -38,3 +38,36 @@
  * Points: 1) for strings use "equals()" rather than "=="
  *         2)initial value of length should be 1, like "bbbbbb"
  */
+
+/**
+ * Another ituition is to use sliding window (I got it from the solution.)
+ * The sliding window is going to be a hashset and then detect whether the given character appears or not.
+ * Record the maximum length of the substring at the same time.
+ */
+
+class Solution-2 {
+    /**
+     * The second try is the sliding window method. And the sliding window is going to be
+     * a hashSet.
+     */
+    public int lengthOfLongestSubstring(String s) {
+        if (s.equals(null) || s.equals("")) return 0;
+        char[] array = s.toCharArray();
+        if (array.length == 1) return 1;
+        Set<Character> set = new HashSet<Character>();
+        int i = 0; // record the beginning of the substring
+        int j = 0; // record the end of the substring
+        int result = 0; // record the maximum length of the substring
+        while (i < array.length && j < array.length) {
+            if (!set.contains(array[j])) {
+                set.add(array[j++]);
+                result = Math.max(result, j - i);
+            } else set.remove(array[i++]);
+        }
+        return result;
+    }
+    
+}
+/**
+ * Note: also another optimal solution is provided but i just skipped :)
+ */
